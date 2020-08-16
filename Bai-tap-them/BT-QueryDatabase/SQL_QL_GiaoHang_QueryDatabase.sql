@@ -1,0 +1,403 @@
+﻿USE QL_GIAOHANG
+GO
+-- Sử dụng câu lệnh SELECT
+-- 2.1 Danh sách đối tác cung cấp hàng cho công ty?
+SELECT * FROM NHACUNGCAP
+GO
+-- 2.2 Mã hàng, tên hàng và số lượng của mặt hàng hiện có trong công ty?
+SELECT	MAHANG 'Mã hàng',
+		TENHANG 'Tên hàng', 
+		SOLUONG 'Số lượng'
+FROM MATHANG
+GO
+-- 2.3 Họ tên, địa chỉ và năm bắt đầu làm việc của các nhân viên trong công ty?
+SELECT	CONCAT(HO,'',TEN) AS 'Họ tên',
+		DIACHI 'Địa chỉ', 
+		YEAR(NGAYLAMVIEC) 'Năm bắt đầu làm'
+FROM NHANVIEN
+GO
+
+-- 2.4 Địa chỉ và điện thoại nhà cung cấp Vinamilk?
+SELECT	TENCONGTY 'Tên công ty',
+		DIACHI 'Địa chỉ',
+		DIENTHOAI 'Điện thoại'
+FROM NHACUNGCAP
+WHERE MACONGTY = 1
+GO
+
+-- 2.5 Cho biết mã và tên của các mặt hàng có giá hơn 100000 và số lượng hiện có ít hơn 50?
+SELECT * 
+FROM MATHANG
+WHERE GIAHANG > 100000 AND SOLUONG < 50
+GO
+
+-- 2.6 Cho biết mỗi mặt hàng trong công ty do ai cung cấp?
+SELECT	M.TENHANG 'Tên hàng',
+		N.TENCONGTY 'Tên công ty cung cấp'
+FROM MATHANG AS M LEFT JOIN NHACUNGCAP AS N ON M.MACONGTY = N.MACONGTY
+GROUP BY M.TENHANG, N.TENCONGTY
+GO
+
+-- 2.7 Công ty Việt Tiến cung cấp những mặt hàng nào?
+SELECT	M.*,
+		N.TENCONGTY 'Tên công ty cung cấp'
+FROM MATHANG AS M LEFT JOIN NHACUNGCAP AS N ON M.MACONGTY = N.MACONGTY
+WHERE M.MACONGTY = 4
+GO
+
+-- 2.8 Loại hàng thực phẩm do công ty nào cung cấp và địa chỉ của các công ty đó là gì?
+SELECT	M.MAHANG 'Mã hàng',
+		M.TENHANG 'Tên hàng',
+		N.TENCONGTY 'Tên công ty cung cấp',
+		N.DIACHI 'Địa chỉ'
+FROM MATHANG AS M LEFT JOIN NHACUNGCAP AS N ON M.MACONGTY = N.MACONGTY
+WHERE M.MALOAIHANG = 2
+GO
+
+-- 2.9 Những khách hàng nào (tên giao dịch) đã đặt mua mặt hằng Sữa hộp XYZ của công ty?
+SELECT 
+	K.MAKHACHHANG 'Mã khách hàng',
+	K.TENCONGTY 'Tên công ty',
+	D.SOHOADON 'Số hóa đơn',
+	M.TENHANG 'Tên hàng'
+FROM KHACHHANG AS K 
+INNER JOIN DONDATHANG AS D
+ON K.MAKHACHHANG = D.MAKHACHHANG
+INNER JOIN CHITIETDATHANG AS C
+ON C.SOHOADON = D.SOHOADON
+INNER JOIN MATHANG AS M
+ON M.MAHANG = C.MAHANG
+GROUP BY 
+K.MAKHACHHANG,
+K.TENCONGTY,
+D.SOHOADON,
+M.MAHANG,
+M.TENHANG
+HAVING M.MAHANG = 1
+GO
+
+-- 2.10 Đơn dặt hàng số 1 do ai đặt và do nhân viên nào lập, thời gian và địa điểm giao hàng ở đâu?
+SELECT	D.SOHOADON 'Số hóa đơn',
+		K.TENCONGTY 'Tên khách hàng',
+		CONCAT(N.HO,'',N.TEN) 'Tên nhân viên',
+		D.NGAYGIAOHANG 'Ngày giao hàng',
+		D.NOIGIAOHANG 'Nơi giao hàng'
+FROM DONDATHANG AS D 
+INNER JOIN NHANVIEN AS N ON D.MANHANVIEN = N.MANHANVIEN
+INNER JOIN KHACHHANG AS K ON D.MAKHACHHANG = K.MAKHACHHANG
+WHERE D.SOHOADON = 1
+GO
+
+-- 2.11 Hãy cho biết số tiền lương mà công ty phải trả cho mỗi nhân viên (Lương = Lương CB + Phụ cấp)?
+SELECT	N.*,
+		(N.LUONGCOBAN + N.PHUCAP) 'Lương'
+FROM NHANVIEN AS N
+GO
+
+-- 2.12 Trong đơn đặt hàng 3 mua MH nào và sô tiền KH phải trả cho mỗi MH (SOLUONG*GIABAN - SOLUOWNG*GIABAN*MUCGIAMGIA/100)?
+SELECT	C.*,
+		(C.SOLUONG*C.GIABAN*(1-MUCGIAMGIA)) AS 'Thành tiền'
+FROM CHITIETDATHANG AS C
+WHERE C.SOHOADON = 3
+GO
+
+-- 2.13 Hãy cho biết có những khách hàng nào lại là chính là đối tác cung cấp hàng của công ty (cùng tên giao dịch)?
+SELECT K.* 
+FROM KHACHHANG AS K INNER JOIN NHACUNGCAP AS N ON K.TENGIAODICH = N.TENGIAODICH
+GO
+-- 2.14 Trong công ty có những nhân viên cùng ngày sinh?
+ SELECT * 
+ FROM NHANVIEN 
+ WHERE DAY(NGAYSINH) IN (
+  SELECT DAY(NGAYSINH) 
+  FROM NHANVIEN
+  GROUP BY DAY(NGAYSINH)
+  HAVING COUNT(DAY(NGAYSINH)) > 1
+)
+GO
+
+-- 2.15 Những đơn hàng nào yêu cầu giao hàng tại công ty đặt hàng và những đơn đó là của công ty nào
+ SELECT D.*,
+		K.TENCONGTY AS 'Tên công ty'
+ FROM DONDATHANG AS D INNER JOIN KHACHHANG AS K ON D.MAKHACHHANG = K.MAKHACHHANG
+ WHERE D.NOIGIAOHANG = K.DIACHI
+ GO
+
+ -- 2.16 Tên công ty, tên GD, địa chỉ và điện thoại KH và các nhà cung cấp hàng?
+ SELECT TENCONGTY 'Tên công ty',
+		TENGIAODICH 'Tên giao dịch',
+		DIACHI 'Địa chỉ',
+		DIENTHOAI 'Điện thoại'
+ FROM KHACHHANG
+ GO
+
+ SELECT TENCONGTY 'Tên công ty',
+		TENGIAODICH 'Tên giao dịch',
+		DIACHI 'Địa chỉ',
+		DIENTHOAI 'Điện thoại'
+ FROM NHACUNGCAP
+ GO
+
+ -- 2.17 Những mặt hàng nào chưa từng được KH đặt mua?
+ SELECT * 
+ FROM MATHANG AS M
+ WHERE M.MAHANG  NOT IN (
+	SELECT C.MAHANG 
+	FROM CHITIETDATHANG AS C
+	GROUP BY C.MAHANG 
+	HAVING COUNT(C.MAHANG ) > 0
+)
+GO
+
+-- 2.18 Những nhân viên nào của công ty chưa từng lập HĐ nào?
+SELECT * 
+ FROM NHANVIEN AS N
+ WHERE N.MANHANVIEN  NOT IN (
+	SELECT D.MANHANVIEN
+	FROM DONDATHANG AS D
+	GROUP BY D.MANHANVIEN 
+	HAVING COUNT(D.MANHANVIEN) > 0
+)
+GO
+
+-- 2.19 Những NV nào của công ty có lương CB cao nhất
+SELECT TOP(3)* 
+ FROM NHANVIEN AS N
+ ORDER BY N.LUONGCOBAN DESC
+ GO
+
+ -- 2.20 Tổng số tiền mà khách hàng phải trả cho mỗi đơn đặt hàng
+SELECT K.MAKHACHHANG,
+		K.TENCONGTY,
+		C.*,
+		(C.SOLUONG * C.GIABAN * (1 - MUCGIAMGIA)) AS 'Tổng tiền'
+FROM DONDATHANG AS D	INNER JOIN CHITIETDATHANG AS C ON D.SOHOADON = C.SOHOADON
+						INNER JOIN KHACHHANG AS K ON D.MAKHACHHANG = K.MAKHACHHANG
+GO
+
+-- 2.21 Trong năm 2019, những mặt hàng nào chỉ được đặt mua đúng 1 lần
+SELECT * 
+FROM MATHANG AS M
+WHERE M.MAHANG IN (
+	SELECT C.MAHANG
+	FROM CHITIETDATHANG AS C INNER JOIN DONDATHANG AS D ON C.SOHOADON = D.SOHOADON
+	WHERE YEAR(D.NGAYDATHANG) = 2019
+	GROUP BY C.MAHANG
+	HAVING COUNT(C.MAHANG) = 1
+)
+GO
+
+-- 2.22 Hãy cho biết mỗi KH phải bổ bao nhiêu tiền để đặt mua hàng của công ty
+SELECT	K.TENCONGTY 'Tên khách hàng (Công ty)',
+		SUM(C.SOLUONG * C.GIABAN * (1 - MUCGIAMGIA)) AS 'Tổng tiền đã mua hàng'
+FROM KHACHHANG AS K INNER JOIN DONDATHANG AS D ON K.MAKHACHHANG = D.MAKHACHHANG
+					INNER JOIN CHITIETDATHANG AS C ON D.SOHOADON = C.SOHOADON
+GROUP BY K.TENCONGTY
+GO
+
+-- 2.23 Mỗi NV của công ty đã lập bao nhiêu đơn đặt hàng
+SELECT	N.MANHANVIEN 'Mã NV',
+		CONCAT(N.HO,'',N.TEN) 'Họ tên',
+		ISNULL(COUNT(D.MANHANVIEN),0) 'Số đơn hàng'
+FROM NHANVIEN AS N FULL OUTER JOIN DONDATHANG AS D ON N.MANHANVIEN=D.MANHANVIEN
+GROUP BY N.MANHANVIEN, CONCAT(N.HO,'',N.TEN)
+ORDER BY N.MANHANVIEN
+GO
+-- 2.24 Tổng số tiền hàng mà cửa hàng thu được trong mỗi tháng của năm 2019
+SELECT	MONTH(D.NGAYDATHANG) AS 'Tháng',
+		SUM(C.SOLUONG * C.GIABAN * (1 - C.MUCGIAMGIA)) AS 'Tổng tiền'
+FROM CHITIETDATHANG AS C INNER JOIN DONDATHANG AS D ON C.SOHOADON = D.SOHOADON
+WHERE YEAR(D.NGAYDATHANG) = 2019
+GROUP BY MONTH(D.NGAYDATHANG)
+GO
+
+-- 2.25 Tổng số tiền lời mà công ty thu được từ mỗi mặt hàng trong năm 2019
+SELECT	M.MAHANG 'Mã hàng', 
+		M.TENHANG 'Tên hàng',
+		SUM(C.SOLUONG * (C.GIABAN - M.GIAHANG) * (1 - C.MUCGIAMGIA)) AS 'Tiền lời'
+FROM DONDATHANG AS D	INNER JOIN CHITIETDATHANG AS C ON D.SOHOADON = C.SOHOADON
+						INNER JOIN MATHANG AS M ON C.MAHANG = M.MAHANG
+WHERE YEAR(D.NGAYDATHANG) = 2019
+GROUP BY M.MAHANG, M.TENHANG
+GO
+
+-- 2.26 Tổng số lượng hàng của mỗi mặt hàng hiện có và đã bán
+SELECT	M.MAHANG 'Mã hàng', 
+		M.TENHANG 'Tên hàng',
+		M.SOLUONG 'Hiện có',
+		SUM(C.SOLUONG) 'Đã bán'
+FROM CHITIETDATHANG AS C RIGHT JOIN MATHANG AS M ON C.MAHANG = M.MAHANG
+GROUP BY M.MAHANG, M.TENHANG, M.SOLUONG
+GO
+
+-- 2.27 NV nào bán được hàng nhiều nhất và số lượng hàng bán được?
+SELECT	TOP(3)
+		N.MANHANVIEN 'Mã NV',
+		CONCAT(N.HO,'',N.TEN) 'Họ tên',
+		SUM(C.SOLUONG) 'Số lượng hàng bán được'
+FROM NHANVIEN AS N	INNER JOIN DONDATHANG AS D ON N.MANHANVIEN = D.MANHANVIEN
+					INNER JOIN CHITIETDATHANG AS C ON D.SOHOADON = C.SOHOADON
+GROUP BY N.MANHANVIEN, CONCAT(N.HO,'',N.TEN)
+ORDER BY SUM(C.SOLUONG) DESC
+GO
+
+-- 2.28 Đơn hàng nào có số lượng hàng đặt mua ít nhất
+SELECT	TOP(3)
+		C.SOHOADON 'Số hóa đơn',
+		SUM(C.SOLUONG )'Tổng số lượng hàng'
+FROM CHITIETDATHANG AS C INNER JOIN MATHANG AS M ON C.MAHANG = M.MAHANG
+GROUP BY C.SOHOADON
+ORDER BY SUM(C.SOLUONG )
+GO
+
+-- 2.29 Số tiền nhiều nhất mà mỗi KH bỏ ra để đặt hàng?
+SELECT	TOP(3)
+		K.MAKHACHHANG 'Mã khách hàng', 
+		K.TENCONGTY 'Tên khách hàng',
+		MAX(C.SOLUONG * C.GIABAN * (1 - C.MUCGIAMGIA)) 'Số tiền nhiều nhất'
+FROM DONDATHANG AS D	INNER JOIN KHACHHANG AS K ON D.MAKHACHHANG = K.MAKHACHHANG
+						INNER JOIN CHITIETDATHANG AS C ON C.SOHOADON = D.SOHOADON
+GROUP BY K.MAKHACHHANG, K.TENCONGTY
+ORDER BY MAX(C.SOLUONG * C.GIABAN * (1 - C.MUCGIAMGIA)) DESC
+GO
+
+-- 2.30 Mỗi đơn đặt hàng mua những mặt hàng nào và tổng tiền mỗi đơn hàng?
+SELECT	C.SOHOADON 'Số hóa đơn',
+		M.TENHANG 'Mặt hàng',
+		(C.SOLUONG * C.GIABAN * (1 - C.MUCGIAMGIA)) 'Tổng tiền'
+FROM CHITIETDATHANG AS C INNER JOIN MATHANG AS M ON C.MAHANG = M.MAHANG
+GO
+
+-- 2.31 Cho biết mỗi loại hàng bao gồm MH nào, tổng số lượng mỗi loại và số lượng hiện có ở công ty
+SELECT		L.MALOAIHANG 'Mã loại hàng',
+			L.TENLOAIHANG 'Tên loại hàng',
+			STRING_AGG(M.TENHANG,',') 'Danh sách',
+			SUM(M.SOLUONG) 'Tổng SL hiện có'
+FROM MATHANG AS M	INNER JOIN LOAIHANG AS L ON L.MALOAIHANG = M.MALOAIHANG
+GROUP BY L.MALOAIHANG,L.TENLOAIHANG
+GO
+
+-- 2.32 Thống kê năm 2019, mỗi mặt hàng trong mỗi tháng và trong cả năm số lượng bán được?
+SELECT	C.MAHANG 'Mã hàng',
+		M.TENHANG 'Tên hàng',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 1 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 1',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 2 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 2',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 3 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 3',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 4 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 4',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 5 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 5',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 6 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 6',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 7 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 7',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 8 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 8',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 9 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 9',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 10 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 10',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 11 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 11',
+		SUM(CASE MONTH(D.NGAYDATHANG) WHEN 12 THEN C.SOLUONG ELSE 0 END) AS 'Tháng 12',
+		SUM(C.SOLUONG) AS 'Cả năm'
+FROM DONDATHANG AS D	INNER JOIN CHITIETDATHANG AS C ON D.SOHOADON = C.SOHOADON
+						INNER JOIN MATHANG AS M ON C.MAHANG = M.MAHANG
+WHERE YEAR(D.NGAYDATHANG) = 2019
+GROUP BY C.MAHANG, M.TENHANG
+GO
+
+-- Sử dụng câu lệnh UPDATE
+-- 2.33 Cập nhật NGAYCHUYENHANG chưa xác định (NULL) trong DONDATHANG bằng với NGAYDATHANG
+UPDATE DONDATHANG
+SET NGAYCHUYENHANG = NGAYDATHANG
+WHERE NGAYCHUYENHANG IS NULL
+GO
+
+-- 2.34 Tăng số lượng hàng những mặt hàng do công ty Vinamilk cung cấp lên gấp đôi
+UPDATE MATHANG
+SET SOLUONG = SOLUONG*2
+FROM NHACUNGCAP
+WHERE NHACUNGCAP.MACONGTY = MATHANG.MACONGTY AND TENCONGTY = 'Vinamilk'
+GO
+
+-- 2.35 Cập nhật NOIGIAOHANG trong bảng DONDATHANG bằng địa chỉ của KH đối với những NOIGIAOHANG giá trị NULL
+UPDATE DONDATHANG 
+SET NOIGIAOHANG = K.DIACHI
+FROM KHACHHANG AS K
+WHERE DONDATHANG.MAKHACHHANG = K.MAKHACHHANG AND NOIGIAOHANG IS NULL
+GO
+
+-- 2.36 Cập nhật bảng KHACHHANG nếu khách hàng trùng với nhà cung cấp thì DC, DT, Fax và Email phải giống nhau
+UPDATE KHACHHANG 
+SET		KHACHHANG.DIACHI = N.DIACHI,
+		KHACHHANG.DIENTHOAI = N.DIENTHOAI,
+		KHACHHANG.FAX = N.FAX,
+		KHACHHANG.EMAIL = N.EMAIL
+FROM NHACUNGCAP AS N
+WHERE KHACHHANG.TENCONGTY = N.TENCONGTY AND KHACHHANG.TENGIAODICH = N.TENGIAODICH
+GO
+
+-- 2.37 Tăng lương cơ bản lên gấp 1.5 cho NV bán được hàng nhều hơn 1000 trong năm 2019
+UPDATE NHANVIEN
+SET LUONGCOBAN = LUONGCOBAN*1.5
+WHERE MANHANVIEN = (SELECT MANHANVIEN 
+					FROM DONDATHANG AS D INNER JOIN CHITIETDATHANG AS C
+					ON D.SOHOADON = C.SOHOADON
+					WHERE MANHANVIEN = NHANVIEN.MANHANVIEN
+					GROUP BY MANHANVIEN
+					HAVING SUM(SOLUONG)>1000)
+GO
+
+-- 2.38 Tăng phụ cấp lên 50% lương cho NV bán được hàng nhiều nhất
+UPDATE NHANVIEN
+SET PHUCAP = LUONGCOBAN/2
+WHERE MANHANVIEN IN (SELECT MANHANVIEN
+					FROM DONDATHANG AS D INNER JOIN CHITIETDATHANG AS C
+					ON D.SOHOADON = C.SOHOADON
+					GROUP BY MANHANVIEN
+					HAVING SUM(SOLUONG) >= ALL (SELECT SUM(SOLUONG)
+												FROM DONDATHANG AS D INNER JOIN CHITIETDATHANG AS C
+												ON D.SOHOADON = C.SOHOADON
+												GROUP BY MANHANVIEN))
+GO
+
+-- 2.39 Giảm 25% lương CB của những NV trong năm 2019 không lập được đơn hàng nào
+UPDATE NHANVIEN
+SET LUONGCOBAN = LUONGCOBAN - (LUONGCOBAN*0.25)
+WHERE NOT EXISTS (SELECT MANHANVIEN 
+				FROM DONDATHANG AS D
+				WHERE D.MANHANVIEN = NHANVIEN.MANHANVIEN)
+GO
+
+-- 2.40 Giả sử trong bảng DONDATHANG có thêm trường SOTIEN (số tiền KH phải trả trong mỗi đơn đặt hàng). Tính giá trị trường này?
+UPDATE DONDATHANG
+SET SOTIEN = (SELECT SUM(SOLUONG*GIABAN*(1-MUCGIAMGIA))
+				FROM CHITIETDATHANG AS C
+				WHERE C.SOHOADON = DONDATHANG.SOHOADON
+				GROUP BY SOHOADON)
+GO
+
+-- Sử dụng câu lệnh DELETE
+-- 2.41 Xóa khỏi bảng NHANVIEN những NV đã làm việc trong công ty quá 40 năm
+DELETE FROM NHANVIEN
+WHERE (YEAR(GETDATE()) - YEAR(NGAYLAMVIEC)) > 40
+GO
+
+-- 2.42 Xóa những đơn đặt hàng trước năm 2000 ra khỏi CSDL
+DELETE FROM DONDATHANG
+WHERE YEAR(NGAYDATHANG) < 2000
+GO
+
+-- 2.43 Xóa khỏi bảng LOAIHANG những loại hàng hiện không có mặt hàng
+DELETE FROM LOAIHANG
+WHERE NOT EXISTS (SELECT M.MAHANG
+					FROM MATHANG AS M
+					WHERE M.MALOAIHANG = LOAIHANG.MALOAIHANG)
+GO
+
+-- 2.44 Xóa khỏi bẳng KHACHHANG những khách hàng hiện không có bất kỳ đơn hàng nào cho công ty
+DELETE FROM KHACHHANG
+WHERE NOT EXISTS (SELECT D.SOHOADON
+					FROM DONDATHANG AS D
+					WHERE D.MAKHACHHANG = KHACHHANG.MAKHACHHANG)
+GO
+
+-- 2.45 Xóa khỏi MATHANG những mặt hàng có số lượng bằng 0 và không được đặt mua trong bất kỳ đơn hàng nào
+DELETE FROM MATHANG
+WHERE NOT EXISTS (SELECT C.MAHANG
+					FROM CHITIETDATHANG AS C
+					WHERE C.MAHANG = MATHANG.MAHANG)
+GO

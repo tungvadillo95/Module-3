@@ -1,0 +1,13 @@
+﻿@{ 
+    var empolyees = ViewData["employees"] as IEnumerable<WBD_Demo.Models.Employee>;
+}
+
+@foreach(var employee in empolyees)
+{
+    <div>
+        <h3>Name: @employee.Fullname</h3>
+        <img src=@Url.Content(employee.Avatarpath) width="300" height="200"/>
+        <h4>Email: @employee.Email</h4>
+        <h4>Department: @employee.Department</h4>
+    </div>
+}
