@@ -1,0 +1,27 @@
+﻿@model Calculator
+@{
+    ViewData["Title"] = "Calculator";
+}
+<div>
+    <h2>@ViewData["Title"]</h2>
+    <form asp-controller="Home" asp-action="Calculate" method="post">
+        <div class="row">
+            <div class="form-group mx-5">
+                <input type="text" asp-for="@Model.valueA" class="form-control" placeholder="Value A">
+            </div>
+            <div class="form-group mx-5">
+                <input type="text" asp-for="@Model.valueB" class="form-control" placeholder="Value B">
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" asp-controller="Calculator" asp-action="Addition" class="btn btn-primary">Addition(+)</button>
+            <button type="submit" asp-controller="Calculator" asp-action="Subtraction" class="btn btn-danger">Subtraction(-)</button>
+            <button type="submit" asp-controller="Calculator" asp-action="Multiplication" class="btn btn-warning">Multiplication(x)</button>
+            <button type="submit" asp-controller="Calculator" asp-action="Divison" class="btn btn-secondary">Divison(/)</button>
+        </div>
+        <div class="form-group">
+            <label class="text-danger">Result @ViewData["Name"] :</label>
+            <input type="text" disabled asp-for="@Model.result" class="form-control">
+        </div>
+    </form>
+</div>

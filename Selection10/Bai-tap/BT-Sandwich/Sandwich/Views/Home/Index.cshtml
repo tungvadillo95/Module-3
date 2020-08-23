@@ -1,0 +1,30 @@
+﻿@model SanwichModel
+@{
+    ViewData["Title"] = "Sandwich Condiments";
+}
+
+<div>
+    <h2 class="display-4 text-primary">@ViewData["Title"]</h2>
+    <form asp-controller="Home" asp-action="OnPostSanwich" method="post">
+        <div class="row">
+            <div class="custom-control custom-checkbox mx-3">
+                <input type="checkbox" asp-for="@Model.Lettuce"class="custom-control-input" id="Lettuce">
+                <label class="custom-control-label" for="Lettuce">Lettuce</label>
+            </div>
+            <div class="custom-control custom-checkbox mx-3">
+                <input type="checkbox" asp-for="@Model.Tomato" class="custom-control-input" id="Tomato">
+                <label class="custom-control-label" for="Tomato">Tomato</label>
+            </div>
+            <div class="custom-control custom-checkbox mx-3">
+                <input type="checkbox" asp-for="@Model.Mustard" class="custom-control-input" id="Mustard">
+                <label class="custom-control-label" for="Mustard">Mustard</label>
+            </div>
+            <div class="custom-control custom-checkbox mx-3">
+                <input type="checkbox" asp-for="@Model.Sprouts" class="custom-control-input" id="Sprouts">
+                <label class="custom-control-label" for="Sprouts">Sprouts</label>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

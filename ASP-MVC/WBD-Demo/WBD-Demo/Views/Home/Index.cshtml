@@ -1,13 +1,39 @@
-﻿@{ 
-    var empolyees = ViewData["employees"] as IEnumerable<WBD_Demo.Models.Employee>;
-}
+﻿@*@{ 
+    //var empolyees = ViewData["employees"] as IEnumerable<WBD_Demo.Models.Employee>;
 
-@foreach(var employee in empolyees)
-{
-    <div>
-        <h3>Name: @employee.Fullname</h3>
-        <img src=@Url.Content(employee.Avatarpath) width="300" height="200"/>
-        <h4>Email: @employee.Email</h4>
-        <h4>Department: @employee.Department</h4>
-    </div>
+    var empolyees = ViewBag.Employees as IEnumerable<Employee>;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Liverpool";
+}*@
+
+@model IEnumerable<Employee>
+@{ 
+    ViewBag.Title = "Employees Liverpool";
 }
+<div class="row"> 
+    @foreach (var employee in Model)
+    {
+        var avatarPath = $"/images/{(employee.Avatarpath ?? "none-avatar.png")}";
+    <div class="col-sm-3 mx-2 my-2">
+        <div class="card my-2">
+            <div class="card-header">
+                <h3 style="text-align: center;">@employee.Name</h3>
+            </div>
+            <img src="@avatarPath" class="card-img-top myImage" asp-append-version="true"/>
+            @*<h4>Email: @employee.Email</h4>
+            <h4>Department: @employee.Department</h4>*@
+            <div class="card-footer text-center">
+                @*<a href="Home/Details/@employee.ID">View</a>*@
+                @*@Html.ActionLink("View","Details","Home", new { ID = employee.ID })*@
+                @*<a href="@Url.Action("Details","Home", new { ID = employee.ID })" class="btn btn-info">View</a>
+                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>*@
+
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@employee.ID" class="btn btn-info">View</a>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.ID" class="btn btn-primary">Edit</a>
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@employee.ID" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    }
+</div>

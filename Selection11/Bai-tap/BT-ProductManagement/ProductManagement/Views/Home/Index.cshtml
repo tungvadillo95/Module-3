@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Manufacturing</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var product in ViewBag.products)
+            {
+                <tr>
+                    <th scope="row">@product.ID</th>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Manufacturing</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,144 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+ Margin bottom by footer height 
+margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;  Vertically center the text there 
+}
+header {
+    position: relative;
+}
+
+.shopping-mall {
+    margin-top: auto;
+    font-variant: small-caps;
+}
+
+    .shopping-mall > h1 {
+        font-family: Impact;
+        font-size: 50px;
+        color: white;
+        letter-spacing: 0.3px;
+        text-shadow: 0 0 2px black;
+        padding-bottom: 0px;
+        border-bottom: 1px dotted gray;
+        margin: 0px;
+        width: 49%;
+    }    
+
+    .shopping-mall > h5 {
+        margin-top: 5px;
+        letter-spacing: 0.5px;
+        font-size: small;
+    }
+.poly-cart {
+    margin-top: 5px;
+}
+
+    .poly-cart ul {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+        font-variant: small-caps;
+    }
+
+    .poly-cart .panel-heading strong {
+        font-variant: small-caps;
+        font-size: larger;
+        text-shadow: 0 0 2px darkgray;
+    }
+.poly-prod {
+    text-align: center;
+    padding: 5px;
+}
+.card-default {
+    border-color: #ddd;
+}
+.card {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.card-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.card-body {
+    padding: 15px;
+}
+.card-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}

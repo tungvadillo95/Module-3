@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Login page";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<title>@ViewData["Title"]</title>
+<div class="container">
+    <form method="post" action="~/User/Login">
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

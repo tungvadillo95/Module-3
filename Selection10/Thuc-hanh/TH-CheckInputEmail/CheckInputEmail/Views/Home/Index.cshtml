@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <form class="form-inline" method="POST" action="Home">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" name="email" class="form-control" placeholder="Enter Email">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Check</button>
+    </form>
+    <h3>@ViewBag.Message</h3>
+</div>

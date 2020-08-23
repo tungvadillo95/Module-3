@@ -1,0 +1,44 @@
+﻿@*@model Employee
+    @{
+        Layout = "~/Views/Shared/_DetailsLayout.cshtml";
+        //ViewBag.Title = "Liverpool Detail";
+        ViewBag.Title = ViewBag.TitleName;
+        //var employee = ViewBag.Employee as Employee;
+    }*@
+@*<h3>Name: @employee.Fullname</h3>
+    <img src=@Url.Content(employee.Avatarpath) width="300" height="200" />
+    <h4>Email: @employee.Email</h4>
+    <h4>Department: @employee.Department</h4>*@
+@model HomeDetailViewModel
+@{ 
+    ViewBag.Title = Model.TitleName;
+    var avatarPath = $"/images/{(Model.Employee.Avatarpath ?? "none-avatar.png")}";
+}
+
+@*<h3>@Model.Employee.Fullname</h3>
+<img src=@Url.Content(Model.Employee.Avatarpath) width="300" height="200" />
+<h4>Email: @Model.Employee.Email</h4>
+<h4>Department: @Model.Employee.Department</h4>*@
+
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <div class="card my-2">
+            <div class="card-header">
+                <h3 style="text-align: center;">@Model.Employee.Name</h3>
+            </div>
+            <div class="card-body text-center">
+                <img src="@avatarPath" class="card-img-top" style="width:400px; height:300px" asp-append-version="true"/>
+                <h3>Email: @Model.Employee.Email</h3>
+                <h3>Department: @Model.Employee.Department</h3>
+            </div>
+            <div class="card-footer text-center">
+                @*<a href="@Url.Action("","Home")" class="btn btn-warning">Back</a>
+        <a href="#" class="btn btn-primary">Edit</a>
+        <a href="#" class="btn btn-danger">Delete</a>*@
+                <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Back</a>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Employee.ID" class="btn btn-primary">Edit</a>
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Employee.ID" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

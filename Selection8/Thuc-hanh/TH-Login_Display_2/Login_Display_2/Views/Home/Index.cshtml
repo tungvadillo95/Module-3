@@ -1,0 +1,12 @@
+﻿@model DictionaryModel
+@{
+    ViewData["Title"] = "Dictionary";
+}
+<h3>@ViewData["Title"]</h3>
+<form asp-controller="Home" asp-action="OnPost" class="form-inline" method="POST">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="word" asp-for="@Model.word" class="form-control" placeholder="Enter your word">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Search</button>
+</form>
+<h3>@ViewData["result"]</h3>

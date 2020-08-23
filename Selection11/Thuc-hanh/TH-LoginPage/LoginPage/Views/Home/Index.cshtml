@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (@ViewBag.Username != null)
+    {
+        <h1 class="display-4">hi @ViewBag.Username</h1>
+        <a class="btn btn-success" type="button" href='@Url.Action("Logout")'>Logout</a>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome</h1>
+        <a class="btn btn-success" type="button" href='@Url.Action("Login", "User")'>Go To Login Page</a>
+    }
+
+</div>

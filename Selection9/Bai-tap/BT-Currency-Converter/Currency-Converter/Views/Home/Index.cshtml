@@ -1,0 +1,23 @@
+﻿
+@model IndexModel
+@{ 
+    ViewData["Title"] = "Privacy Policy";
+}
+<div class="text-center">
+    <h2>@ViewData["Title"]</h2>
+    <form asp-controller="Home" asp-action="OnPost" method="post">
+        <div class="form-group">
+            <label for="rate">Rate:</label>
+            <input type="text" name="rate" asp-for="@Model.Rate" class="form-control" placeholder="Enter rate">
+        </div>
+        <div class="form-group">
+            <label for="usd">USD</label>
+            <input type="text" name="usd" asp-for="@Model.Usd" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="vnd">VND</label>
+            <input type="text" disabled asp-for="@Model.Vnd" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Converter</button>
+    </form>
+</div>

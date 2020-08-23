@@ -1,0 +1,17 @@
+﻿@model IndexModel
+@{
+    ViewData["Title"] = "Login page";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form asp-controller="Home" asp-action="OnPost" method="post">
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" name="username" asp-for="@Model.Username" placeholder="Enter Username" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" name="password" asp-for="@Model.Password" placeholder="Enter Password"  required>
+
+        <button type="submit">Login</button>
+    </div>
+</form>
