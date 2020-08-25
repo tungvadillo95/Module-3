@@ -1,0 +1,10 @@
+﻿@{
+    var book = ViewData["Book"] as Book;
+}
+
+@ViewData["Greeting"]!
+<br>
+
+<p>Book ID: @book.BookID</p>
+<p>Book Name: @book.BookName</p>
+<p>Author: @book.Author</p>
