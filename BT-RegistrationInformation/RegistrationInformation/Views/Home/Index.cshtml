@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
             <label for="ddlDistrict">Quận/Huyện</label>
-            <select id="ddlDistrict" class="form-control">
+            <select id="ddlDistrict" class="form-control" onclick="getAllWardByPID(this.value)">
                 <option value="">Chọn quận/huyện</option>
             </select>
         </div>
@@ -35,10 +35,10 @@
     @*<script src="~/js/site.js"></script>*@
 <script>
     getAllProvinces();
-    var baseService = "/Service";
-    var provinceUrl = baseService + "/GetAllProvinces";
-    var districtUrl = baseService + "/GetAllDistrictByProvinceId";
-    var wardUrl = baseService + "/GetAllWardByDistrictId";
+    //var baseService = "/Service";
+    //var provinceUrl = baseService + "/GetAllProvinces";
+    //var districtUrl = baseService + "/GetAllDistrictByProvinceId";
+    //var wardUrl = baseService + "/GetAllWardByDistrictId";
     //$(document).ready(function () {
     //    _getProvince();
 
@@ -127,7 +127,6 @@
                 console.log(data);
                 $('#ddlDistrict').html('<option value="">Chọn quận/huyện</option>');
                 for (let i = 0; i < data.length; i++) {
-
                     $('#ddlDistrict').append(`<option value='${data[i].id}'>${data[i]._name}</option>`);
                 }
             }
@@ -143,13 +142,20 @@
                 console.log(data);
                 $('#ddlWard').html('<option value="">Chọn phường/xã</option>');
                 for (let i = 0; i < data.length; i++) {
-
                     $('#ddlWard').append(`<option value='${data[i].id}'>${data[i]._name}</option>`);
                 }
             }
 
         });
     }
+
+    $("#ddlWard").on('change', function () {
+        var provinceText = $("#ddlProvince option:selected").text();
+        var districtText = $("#ddlDistrict option:selected").text();
+        var wardText = $("#ddlWard option:selected").text();
+        var html = "Tỉnh thành: " + provinceText + " " + "Quận huyện: " + districtText + " " + "Xã phường: " + wardText;
+        $("#divResult").html(html);
+    });
 </script>
 }
 
