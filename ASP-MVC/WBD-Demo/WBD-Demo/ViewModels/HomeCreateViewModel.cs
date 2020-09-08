@@ -19,7 +19,10 @@ namespace WBD_Demo.ViewModels
                             , ErrorMessage = "Email nhập không hợp lệ")]
         public string Email { get; set; }
         [Required]
-        public Dept? Department { get; set; }
+        [Display(Name= "Department")]
+        public int DepartmentId { get; set; }
+        public string AvatarPath { get; set; }
         public IFormFile Avatar { get; set; }
+        public List<int> Languages { get; set; }
     }
 }

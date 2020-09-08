@@ -1,0 +1,55 @@
+﻿@model User
+
+@{
+
+    ViewBag.Title = "Signup";
+
+}
+
+<h1>  Signup Form</h1>
+<h3 class="bg-success text-center text-white">@TempData["Result"]</h3>
+
+@using (Html.BeginForm("Signup", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-2" })
+            <div class="col-10">
+                @Html.EditorFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Username, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-2" })
+            <div class="col-10">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-2" })
+            <div class="col-10">
+                @Html.EditorFor(model => model.Age)
+                @Html.ValidationMessageFor(model => model.Age, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-2" })
+            <div class="col-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <p><input type="submit" value="Signup" class="btn btn-primary" /></p>
+
+    </fieldset>
+
+}

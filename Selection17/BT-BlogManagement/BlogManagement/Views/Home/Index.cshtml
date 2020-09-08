@@ -1,0 +1,40 @@
+﻿@model List<RegisterBlogView>
+@{
+    ViewData["Title"] = "Blogs List";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-warning font-weight-bolder">Blogs List</h1>
+    <table id="tbBlogs" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>#ID</th>
+                <th>Tên Blog</th>
+                <th>Giới thiệu</th>
+                <th>Thể loại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blog in Model)
+            {
+            <tr>
+                <td>@blog.Id</td>
+                <td>@blog.BlogName</td>
+                <td>@blog.Present</td>
+                <td>@blog.Category</td>
+                <td>
+                    @*<a asp-controller="Post" asp-action="Index" asp-route-id="@blog.Id" class="text-primary"><i class="fas fa-eye"></i></a>*@
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@blog.Id" class="text-success"><i class="fas fa-edit"></i></a>
+                    <a href="javascript:void(0)" class="text-danger" onclick="blogs.delete(@blog.Id)"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
+    <script src="~/js/blog.js"></script>
+}

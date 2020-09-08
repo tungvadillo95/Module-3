@@ -6,10 +6,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200820033700_SeedingEmployeeData.cs" />
+    <Compile Remove="Migrations\20200820033700_SeedingEmployeeData.Designer.cs" />
+    <Compile Remove="Migrations\20200826141403_InitIdentityTables.cs" />
+    <Compile Remove="Migrations\20200826141403_InitIdentityTables.Designer.cs" />
+    <Compile Remove="Migrations\20200827072839_ExtendAspNetUserTable.cs" />
+    <Compile Remove="Migrations\20200827072839_ExtendAspNetUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907031325_CreateDepartmentTable.cs" />
+    <Compile Remove="Migrations\20200907031325_CreateDepartmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907032507_CreateDepartmentTable.cs" />
+    <Compile Remove="Migrations\20200907032507_CreateDepartmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907032952_CreateDepartmentTable.cs" />
+    <Compile Remove="Migrations\20200907032952_CreateDepartmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907033701_UpdateAll.cs" />
+    <Compile Remove="Migrations\20200907033701_UpdateAll.Designer.cs" />
+    <Compile Remove="Migrations\20200907034455_UpdateAll.cs" />
+    <Compile Remove="Migrations\20200907034455_UpdateAll.Designer.cs" />
+    <Compile Remove="Migrations\20200907140749_CreateLanguageTable.cs" />
+    <Compile Remove="Migrations\20200907140749_CreateLanguageTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907141457_CreateLanguageTable.cs" />
+    <Compile Remove="Migrations\20200907141457_CreateLanguageTable.Designer.cs" />
+    <Compile Remove="Migrations\20200907141613_CreateLanguageTable.cs" />
+    <Compile Remove="Migrations\20200907141613_CreateLanguageTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />

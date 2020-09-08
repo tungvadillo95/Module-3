@@ -26,8 +26,15 @@ using WBD_Demo.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\ASP-MVC\WBD-Demo\WBD-Demo\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e89edaa2f0a9fa95e103ed1f81a0180701562fb9", @"/Views/Shared/_DetailsLayout.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a99c5f229bc3f7f1bdae6bca4dd2841fa27f940b", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2710059914129bbb4297390385adaf9e12b9b975", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__DetailsLayout : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #line hidden
@@ -56,7 +63,7 @@ using WBD_Demo.ViewModels;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("<!DOCTYPE html>\r\n\r\n<html>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89edaa2f0a9fa95e103ed1f81a0180701562fb93342", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89edaa2f0a9fa95e103ed1f81a0180701562fb93554", async() => {
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n    <title>");
 #nullable restore
 #line 6 "C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\ASP-MVC\WBD-Demo\WBD-Demo\Views\Shared\_DetailsLayout.cshtml"
@@ -78,7 +85,7 @@ using WBD_Demo.ViewModels;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89edaa2f0a9fa95e103ed1f81a0180701562fb94643", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e89edaa2f0a9fa95e103ed1f81a0180701562fb94855", async() => {
                 WriteLiteral("\r\n    <div style=\"background-color:red; height: 30px; width: 100%\">\r\n\r\n    </div>\r\n    <div>\r\n        ");
 #nullable restore
 #line 13 "C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\ASP-MVC\WBD-Demo\WBD-Demo\Views\Shared\_DetailsLayout.cshtml"

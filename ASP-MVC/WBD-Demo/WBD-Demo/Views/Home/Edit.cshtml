@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Edit Employee";
+    var departments = ViewBag.Departments as List<Department>;
+    var languages = ViewBag.Languages as List<Language>;
     var avatarPath = $"/images/{(Model.AvatarPath ?? "none-avatar.png")}";
 }
 
@@ -14,7 +16,7 @@
                 <label asp-for="Name"></label>
             </div>
             <div class="col-sm-10">
-                <input asp-for="Name" class="form-control"></input>
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
@@ -23,20 +25,47 @@
                 <label asp-for="Email"></label>
             </div>
             <div class="col-sm-10">
-                <input asp-for="Email" class="form-control"></input>
+                <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-sm-2">
-                <label asp-for="Department"></label>
+                <label asp-for="DepartmentId"></label>
             </div>
             <div class="col-sm-10">
-                <select asp-for="Department" class="custom-select"
-                        asp-items="@Html.GetEnumSelectList<Dept>()">
+                <select asp-for="DepartmentId" class="custom-select">
                     <option value="">Select a department</option>
+                    @if (departments != null)
+                    {
+                        foreach (var dept in departments)
+                        {
+                            <option value="@dept.DepartmentId" selected="@(dept.DepartmentId == Model.DepartmentId)">@dept.DepartmentName</option>
+                        }
+                    }
                 </select>
-                <span asp-validation-for="Department" class="text-danger"></span>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-2">
+                <label>Language</label>
+            </div>
+            <div class="col-sm-10">
+                @if (languages != null)
+                {
+                    foreach (var language in languages)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" 
+                                       name="Languages" 
+                                       value="@language.LanguageId"
+                                       checked="@(Model.SelectedLanguages.Where(lg=>lg.LanguageId==language.LanguageId).ToList().Count()>0)"> @language.LanguageName
+                            </label>
+                        </div>
+                    }
+                }
             </div>
         </div>
         <div class="row form-group">
@@ -51,9 +80,8 @@
             </div>
         </div>
         <div class="row col-4 offset-4">
-            <img src="@avatarPath" style="width: 300px; height: auto" asp-append-version="true"/>
+            <img src="@avatarPath" id="image_upload_preview" style="width: 300px; height: auto" asp-append-version="true" />
         </div>
-        @*<div asp-validation-summary="All"></div>*@
         <div class="row form-group">
             <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary">Update</button>
@@ -65,6 +93,22 @@
 
 @section Scripts{
     <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_upload_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#customFile").change(function () {
+            readURL(this);
+        });
+
         $(document).ready(function () {
             $(".custom-file-input").on("change", function () {
                 var fileName = $(this).val().split("\\").pop();

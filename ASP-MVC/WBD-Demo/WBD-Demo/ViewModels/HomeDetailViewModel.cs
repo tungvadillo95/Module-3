@@ -8,7 +8,7 @@ namespace WBD_Demo.ViewModels
 {
     public class HomeDetailViewModel
     {
-        public Employee Employee { get; set; }
+        public EmployeeDetailViewModel Employee { get; set; }
         public string TitleName { get; set; }
     }
 }

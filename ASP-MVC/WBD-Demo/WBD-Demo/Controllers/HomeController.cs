@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,23 +11,32 @@ using WBD_Demo.ViewModels;
 
 namespace WBD_Demo.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private IEmployeeRepository employeeRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IDepartmentRepository departmentRepository;
+        private readonly ILanguageRepository languageRepository;
+
         //public HomeController()
         //{
         //    employeeRepository = new EmployeeRespository();
         //}
         public HomeController(IEmployeeRepository employeeRepository,
-                               IWebHostEnvironment webHostEnvironment)
+                               IWebHostEnvironment webHostEnvironment,
+                               IDepartmentRepository departmentRepository,
+                               ILanguageRepository languageRepository)
         {
             this.employeeRepository = employeeRepository;
             this.webHostEnvironment = webHostEnvironment;
+            this.departmentRepository = departmentRepository;
+            this.languageRepository = languageRepository;
         }
         //[Route("~/")]
         //[Route("Home")]
         //[Route("Home/Index")]
+        [AllowAnonymous]
         public ViewResult Index()
         {
             //ViewData["employees"] = employeeRepository.Gets();
@@ -67,6 +77,8 @@ namespace WBD_Demo.Controllers
         [HttpGet]
         public ViewResult Create()
         {
+            ViewBag.Departments = GetDepartments();
+            ViewBag.Languages = GetLanguages();
             return View();
         }
         [HttpPost]
@@ -74,11 +86,12 @@ namespace WBD_Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
+                var employee = new CreateEmployeeViewModel()
                 {
                     Name = model.Name,
                     Email = model.Email,
-                    Department = model.Department
+                    DepartmentId = model.DepartmentId,
+                    Languages = model.Languages
                 };
                 string fileName = null;
                 if (model.Avatar != null)
@@ -93,7 +106,7 @@ namespace WBD_Demo.Controllers
                 }
                 employee.Avatarpath = fileName;
                 var newEmployee = employeeRepository.Create(employee);
-                return RedirectToAction("Details", new { ID = newEmployee.ID });
+                return RedirectToAction("Details", new { ID = newEmployee.EmployeeId });
             }
             return View();
         }
@@ -110,9 +123,12 @@ namespace WBD_Demo.Controllers
                 AvatarPath = employee.Avatarpath,
                 Name = employee.Name,
                 Email = employee.Email,
-                Department = employee.Department,
-                ID = employee.ID
+                DepartmentId = employee.DepartmentId,
+                ID = employee.ID,
+                SelectedLanguages = employee.Languages
             };
+            ViewBag.Departments = GetDepartments();
+            ViewBag.Languages = GetLanguages();
             return View(employeeEdit);
         }
         [HttpPost]
@@ -120,13 +136,14 @@ namespace WBD_Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
+                var employee = new EditEmployeeViewModel()
                 {
                     Name = model.Name,
                     Email = model.Email,
-                    Department = model.Department,
-                    ID = model.ID,
-                    Avatarpath = model.AvatarPath
+                    DepartmentId = model.DepartmentId,
+                    EmployeeId = model.ID,
+                    Avatarpath = model.AvatarPath,
+                    Languages = model.Languages
                 };
                 string fileName = null;
                 if (model.Avatar != null)
@@ -149,7 +166,7 @@ namespace WBD_Demo.Controllers
                 var editEmployee = employeeRepository.Edit(employee);
                 if (editEmployee != null)
                 {
-                    return RedirectToAction("Details", new { ID = employee.ID });
+                    return RedirectToAction("Details", new { ID = employee.EmployeeId });
                 }
             }
             return View();
@@ -161,6 +178,14 @@ namespace WBD_Demo.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        private List<Department> GetDepartments()
+        {
+            return departmentRepository.Gets().ToList();
+        }
+        private List<Language> GetLanguages()
+        {
+            return languageRepository.Gets().ToList();
         }
     }
 }

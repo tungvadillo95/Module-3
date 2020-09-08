@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-md-11">
+
+    <h2>Localization Test</h2>
+
+    <select id="mySelect" onchange="changeLanguage()">
+
+        <option>Select a language</option>
+
+        <option value="E">English</option>
+
+        <option value="V">Vietnamese</option>
+
+    </select>
+
+    <br />
+
+    <br />
+
+    <h3>@ViewData["Message"]</h3>
+
+</div>
+
+<script>
+
+    function changeLanguage() {
+
+        var x = document.getElementById("mySelect").value;
+
+        if (x == "E") {
+
+            window.location.href = "/Home/Index?culture=en-US";
+
+        } else {
+
+            window.location.href = "/Home/Index?culture=vi-VN";
+
+        }
+
+    }
+
+</script>

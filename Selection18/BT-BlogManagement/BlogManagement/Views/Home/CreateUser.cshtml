@@ -1,0 +1,43 @@
+﻿@model RegisterUserView
+@{
+    ViewData["Title"] = "Create User";
+}
+<h2 class="text-success">ĐĂNG KÝ TÀI KHOẢN</h2>
+<hr />
+<div style="width: 70%; padding-left: 20px">
+    <form enctype="multipart/form-data" asp-controller="Home" asp-action="CreateUser" method="post" class="mt-2">
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Username"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Password"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="ConfirmPassword"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Tạo</button>
+                <a asp-controller="Home" asp-action="Login" class="btn btn-warning">Hủy</a>
+            </div>
+        </div>
+    </form>
+</div>

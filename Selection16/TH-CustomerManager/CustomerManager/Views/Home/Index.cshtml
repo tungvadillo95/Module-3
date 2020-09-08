@@ -1,0 +1,41 @@
+﻿@model List<CustomerView>
+@{
+    ViewData["Title"] = "Customer list";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Customer List</h1>
+    <table id="tbStaffs" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>#ID</th>
+                <th>Họ và tên</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Tỉnh/Thành phố</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.ProvinceName</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@customer.Id" class="text-success"><i class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0)" class="text-danger" onclick="customers.delete(@customer.Id)"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
+    <script src="~/js/customers.js"></script>
+}

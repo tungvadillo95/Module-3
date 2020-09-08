@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCValidationFormLogin", "SCValidationFormLogin\SCValidationFormLogin.csproj", "{662FEDA8-37C7-4192-9BC2-C8224DFCB3AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{662FEDA8-37C7-4192-9BC2-C8224DFCB3AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662FEDA8-37C7-4192-9BC2-C8224DFCB3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662FEDA8-37C7-4192-9BC2-C8224DFCB3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662FEDA8-37C7-4192-9BC2-C8224DFCB3AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02785C02-9D70-4CAC-843F-F05DC3C1D460}
+	EndGlobalSection
+EndGlobal

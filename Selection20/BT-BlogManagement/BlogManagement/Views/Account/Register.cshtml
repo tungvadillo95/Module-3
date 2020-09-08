@@ -1,0 +1,57 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Register User";
+}
+
+
+<div style="width: 80%; padding-left: 20px">
+    <form asp-controller="Account" asp-action="Register" method="post" class="mt-2">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Password"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="ConfirmPassword"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+    </script>
+}

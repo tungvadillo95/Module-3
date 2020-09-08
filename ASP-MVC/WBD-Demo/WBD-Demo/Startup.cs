@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,11 +27,22 @@ namespace WBD_Demo
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddMvc(option =>
+            {
+                option.EnableEndpointRouting = false;
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                option.Filters.Add(new AuthorizeFilter(policy));
+            }
+            );
             //services.AddSingleton<IEmployeeRepository, EmployeeRespository>();
             services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(config.GetConnectionString("EmployeeBdConnection")));
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(config.GetConnectionString("EmployeeBdConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,13 +51,15 @@ namespace WBD_Demo
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler("/Errors");
-                //app.UseStatusCodePagesWithRedirects("/Errors/{0}");
-                app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+                //app.UseExceptionHandler("/Errors");
+                ////app.UseStatusCodePagesWithRedirects("/Errors/{0}");
+                //app.UseStatusCodePagesWithReExecute("/Errors/{0}");
             }
 
             app.UseStaticFiles();
             //app.UseMvcWithDefaultRoute();
+
+            app.UseAuthentication();
 
             //Convert Route
             app.UseMvc(routers =>

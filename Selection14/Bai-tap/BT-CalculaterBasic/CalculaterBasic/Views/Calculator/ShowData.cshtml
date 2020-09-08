@@ -1,0 +1,32 @@
+﻿@model List<Calculator> 
+    @{
+        ViewData["Title"] = "Show Items";
+    }
+    <table id="dataTable" class=" table table-bordered table-hover mt-3">
+        <thead class=" thead-dark">
+            <tr>
+                <th>Value A</th>
+                <th>Value B</th>
+                <th>Operator</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.valueA</td>
+                    <td>@item.valueB</td>
+                    <td> @item.Operator </td>
+                    <td> @item.result </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('#dataTable').dataTable();
+            });
+        </script>
+    }

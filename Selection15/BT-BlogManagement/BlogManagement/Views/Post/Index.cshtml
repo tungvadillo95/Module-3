@@ -1,0 +1,42 @@
+﻿@model List<RegisterPostView>
+@{
+    ViewData["Title"] = "Posts List";
+}
+
+<div>
+    <h1 class="text-center display-4 text-warning font-weight-bolder">Posts List</h1>
+    <div class="form-group">
+        <a asp-controller="Post" asp-action="Create" asp-route-id="@ViewBag["BlogID"]" class="btn btn-info">Tạo Post</a>
+    </div>
+    <table id="tbPosts" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>#ID</th>
+                <th>Tên Post</th>
+                <th>Nội dung</th>
+                <th>Ngày đăng</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.PostId</td>
+                    <td>@post.Title</td>
+                    <td>@post.Content</td>
+                    <td>@post.DateUpload</td>
+                    <td>
+                        <a asp-controller="Post" asp-action="Edit" asp-route-id="@post.PostId" class="text-success"><i class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0)" class="text-danger" onclick="blogs.delete(@post.PostId)"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
+    <script src="~/js/post.js"></script>
+}

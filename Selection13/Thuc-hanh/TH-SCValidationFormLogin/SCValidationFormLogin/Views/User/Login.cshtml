@@ -1,0 +1,39 @@
+﻿<h2>  Login Form</h2>
+
+<form name="myForm" action="~/User/Login" onsubmit="return validateForm()" method="post">
+
+    Username: <input type="text" name="username"><p style="color:red" id="usernameError"></p>
+
+    Password: <input type="text" name="password"><p style="color:red" id="passwordError"></p>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+<script>
+
+    function validateForm() {
+
+        var username = document.forms["myForm"]["username"].value;
+
+        var password = document.forms["myForm"]["password"].value;
+
+        if (!username) {
+
+            $("#usernameError").text("Enter username!");
+
+            return false;
+
+        }
+
+        if (!password) {
+
+            $("#passwordError").text("Enter password!");
+
+            return false;
+
+        }
+
+    }
+
+</script>
