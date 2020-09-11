@@ -384,3 +384,4 @@ C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\BT-MedicalDeclaration\MedicalDeclarati
 C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\BT-MedicalDeclaration\MedicalDeclaration\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreatePersonalInfo.cshtml.g.cs
 C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\BT-MedicalDeclaration\MedicalDeclaration\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateTravelInfo.cshtml.g.cs
 C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\BT-MedicalDeclaration\MedicalDeclaration\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateContactAddress.cshtml.g.cs
+C:\Users\ASUS\Desktop\BT-CODEGYM\Module-3\BT-MedicalDeclaration\MedicalDeclaration\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateDSAEH.cshtml.g.cs

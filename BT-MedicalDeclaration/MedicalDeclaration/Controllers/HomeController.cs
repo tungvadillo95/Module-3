@@ -9,6 +9,8 @@ using MedicalDeclaration.Models;
 using MedicalDeclaration.Service;
 using MedicalDeclaration.Models.ViewModels;
 using MedicalDeclaration.Models.Entity;
+using MedicalDeclaration.Models.Entity.VietNamDb;
+using MedicalDeclaration.Models.Entity.DiseaseSymptomsAndExposureHistory;
 
 namespace MedicalDeclaration.Controllers
 {
@@ -107,14 +109,27 @@ namespace MedicalDeclaration.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult CreateContactAddress(CreateTravelInformationView model)
+        public IActionResult CreateContactAddress(CreateContactAddressView model)
         {
             if (ModelState.IsValid)
             {
-                var newModel = medicalDeclarationService.CreateTravelInfo(model);
-                return RedirectToAction("Index", "Home", new { ID = newModel.TravelInformationId });
+                var contactAdd = new ContactAddress()
+                {
+                    ProvinceId = model.ProvinceId,
+                    DistrictId = model.DistrictId,
+                    WardId = model.WardId,
+                    PhoneNumber = model.PhoneNumber,
+                    Email = model.Email,
+                    Address = model.Address
+                };
+                if (medicalDeclarationService.CreateContactAdd(contactAdd) > 0)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Lỗi hệ thống. Xin thử lại sau!");
             }
-            return View();
+            var createView = new CreateContactAddressView();
+            return View(createView);
         }
         [Route("/Home/Districts/{provinceId}")]
         public IActionResult GetDistricts(int provinceId)
@@ -128,6 +143,42 @@ namespace MedicalDeclaration.Controllers
         {
             var wards = medicalDeclarationService.GetWards(districtId, provinceId);
             return Json(new { wards });
+        }
+
+        //--------------------------------------------------------------------------------------------------------
+
+        [HttpGet]
+        public IActionResult CreateDSAEH()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateDSAEH(CreateDSAEHView model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dSAEH = new DiseaseSymptomsAndExposureHistory()
+                {
+                    Fever = model.Fever,
+                    Cough = model.Cough,
+                    Sultry = model.Sultry,
+                    SoreThroat = model.SoreThroat,
+                    VomitingOrNausea = model.VomitingOrNausea,
+                    Diarrhea = model.Diarrhea,
+                    BleedingFromTheSkin = model.BleedingFromTheSkin,
+                    SkinRash = model.SkinRash,
+                    VaccinesOrBiologicalsUsed = model.VaccinesOrBiologicalsUsed,
+                    AnimalContact = model.AnimalContact,
+                    CloseContact = model.CloseContact
+                };
+                if (medicalDeclarationService.CreateDSAEH(dSAEH) > 0)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Lỗi hệ thống. Xin thử lại sau!");
+            }
+            var createView = new CreateDSAEHView();
+            return View(createView);
         }
     }
 }

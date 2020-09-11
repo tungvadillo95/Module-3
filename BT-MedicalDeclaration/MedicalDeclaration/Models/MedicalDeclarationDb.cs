@@ -1,4 +1,5 @@
 ﻿using MedicalDeclaration.Models.Entity;
+using MedicalDeclaration.Models.Entity.DiseaseSymptomsAndExposureHistory;
 using MedicalDeclaration.Models.Entity.VietNamDb;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,7 @@ namespace MedicalDeclaration.Models
         public DbSet<PersonalInfomation> PersonalInfos { get; set; }
         public DbSet<InfomationVehicle> InfomationVehicles { get; set; }
         public DbSet<ContactAddress> ContactAdds { get; set; }
+        public DbSet<DiseaseSymptomsAndExposureHistory> DiseaseSymptomsAndExposureHistorys { get; set; }
         public DbSet<Gate> Gates { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Province> Provinces { get; set; }
@@ -37,7 +39,7 @@ namespace MedicalDeclaration.Models
             //modelBuilder.Ignore<TravelInfo>();
             //modelBuilder.Ignore<Vehicle>();
             //modelBuilder.Ignore<InfomationVehicle>();
-            modelBuilder.Ignore<MedicalDeclarater>();
+            //modelBuilder.Ignore<MedicalDeclarater>();
 
             modelBuilder.Entity<InfomationVehicle>()
                 .HasKey(iv => new { iv.TravelInformationId, iv.VehiclesId });

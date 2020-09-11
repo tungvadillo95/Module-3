@@ -1,5 +1,6 @@
 ﻿using MedicalDeclaration.Models;
 using MedicalDeclaration.Models.Entity;
+using MedicalDeclaration.Models.Entity.DiseaseSymptomsAndExposureHistory;
 using MedicalDeclaration.Models.Entity.VietNamDb;
 using MedicalDeclaration.Models.ViewModels;
 using System;
@@ -16,6 +17,18 @@ namespace MedicalDeclaration.Service
         public MedicalDeclarationService(MedicalDeclarationDb medicalDeclarationDb)
         {
             this.medicalDeclarationDb = medicalDeclarationDb;
+        }
+
+        public int CreateContactAdd(ContactAddress contactAddress)
+        {
+            medicalDeclarationDb.ContactAdds.Add(contactAddress);
+            return medicalDeclarationDb.SaveChanges();
+        }
+
+        public int CreateDSAEH(DiseaseSymptomsAndExposureHistory dSAEH)
+        {
+            medicalDeclarationDb.DiseaseSymptomsAndExposureHistorys.Add(dSAEH);
+            return medicalDeclarationDb.SaveChanges();
         }
 
         public int CreatePersonalInfo(PersonalInfomation personalInfo)

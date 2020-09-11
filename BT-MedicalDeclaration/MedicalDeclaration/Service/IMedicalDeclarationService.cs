@@ -1,4 +1,5 @@
 ﻿using MedicalDeclaration.Models.Entity;
+using MedicalDeclaration.Models.Entity.DiseaseSymptomsAndExposureHistory;
 using MedicalDeclaration.Models.Entity.VietNamDb;
 using MedicalDeclaration.Models.ViewModels;
 using System;
@@ -18,5 +19,7 @@ namespace MedicalDeclaration.Service
         IEnumerable<District> GetDistricts(int provinceId);
         IEnumerable<Ward> GetWards(int districtId, int provinceId);
         CreateTravelInformationView CreateTravelInfo(CreateTravelInformationView model);
+        int CreateContactAdd(ContactAddress contactAddress);
+        int CreateDSAEH(DiseaseSymptomsAndExposureHistory dSAEH);
     }
 }

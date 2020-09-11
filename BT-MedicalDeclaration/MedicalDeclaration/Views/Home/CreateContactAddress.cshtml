@@ -4,7 +4,7 @@
 }
 
 
-<form>
+<form asp-controller="Home" asp-action="CreateContactAddress" method="post">
     <div class="row col-xs-12">
         <div class="col-md-4 col-sm-4">
             <div class="form-group  ">
@@ -33,6 +33,33 @@
                 <span asp-validation-for="WardId" class="text-danger"></span>
             </div>
         </div>
+    </div>
+    <div class="row col-xs-12 col-md-12">
+        <div class="form-group" style="width:100%;">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" autocomplete="off" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    <p style="font-size: 12px;"><i>Số điện thoại bạn sẽ sử dụng tại Việt Nam (Là số Roaming hoặc số Việt Nam)</i></p>
+    <div class="row ">
+        <div class="col-md-6 col-sm-6 col-xs-12 ">
+            <div class="form-group">
+                <label asp-for="PhoneNumber"></label>
+                <input class="form-control" asp-for="PhoneNumber" type="text" onkeypress=" return keypress(event)" autocomplete="off" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 ">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" type="text" value="" onblur="this.value=removeSpaces(this.value);" autocomplete="off" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>
 @section Scripts{

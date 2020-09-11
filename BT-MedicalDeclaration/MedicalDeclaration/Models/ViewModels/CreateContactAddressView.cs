@@ -23,7 +23,7 @@ namespace MedicalDeclaration.Models.ViewModels
         [EmailAddress(ErrorMessage = "Email không đúng định dạng")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Bạn chưa nhập số điện thoại")]
-        [Display(Name = "Số điện thoại")]
+        [Display(Name = "Điện thoại")]
         [RegularExpression(@"(09|03|07[1|2|3|4|5|6|7|8|9])+([0-9]{8})\b", ErrorMessage = "Số điện thoại không đúng định dạng")]
         public string PhoneNumber { get; set; }
         [Display(Name = "Tỉnh/Thành phố")]
@@ -33,7 +33,7 @@ namespace MedicalDeclaration.Models.ViewModels
         [Display(Name = "Phường/Xã")]
         public int WardId { get; set; }
         [Required(ErrorMessage = "Bạn chưa nhập địa chỉ")]
-        [Display(Name = "Địa chỉ")]
+        [Display(Name = "Địa chỉ nơi ở tại Việt Nam")]
         public string Address { get; set; }
     }
 }

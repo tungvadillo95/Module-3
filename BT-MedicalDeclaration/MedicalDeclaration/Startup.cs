@@ -56,7 +56,7 @@ namespace MedicalDeclaration
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=CreateContactAddress}/{id?}");
+                    pattern: "{controller=Home}/{action=CreateDSAEH}/{id?}");
             });
         }
     }

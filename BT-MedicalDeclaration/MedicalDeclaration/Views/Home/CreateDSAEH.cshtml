@@ -1,0 +1,147 @@
+﻿@model CreateDSAEHView
+@{
+    ViewBag.Title = "Create New DSAEH";
+}
+<p class="font-weight-bold">
+    Trong vòng 21 ngày (tính đến thời điểm làm thủ tục xuất cảnh, nhập cảnh, quá cảnh)
+    Anh/Chị có thấy xuất hiện dấu hiệu nào sau đây không?
+</p>
+<form asp-controller="Home" asp-action="CreateDSAEH" method="post">
+    <div class="row">
+        <div class="cols-left col-md-6">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Triệu chứng</th>
+                        <th width="70" class="text-center">Có</th>
+                        <th width="70" class="text-center">Không</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <span class="text-danger" asp-validation-for="Fever"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="Fever"></label>
+                        </td>
+                        <td class="text-center"><input type="radio" class="style-radio" asp-for="Fever" value="true"></td>
+                        <td class="text-center"><input type="radio" class="style-radio" asp-for="Fever" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="Cough"></label>
+                            <span class="text-required" asp-validation-for="Cough"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Cough" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Cough" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="Sultry"></label>
+                            <span class="text-required" asp-validation-for="Sultry"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Sultry" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Sultry" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="SoreThroat"></label>
+                            <span class="text-required" asp-validation-for="SoreThroat"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="SoreThroat" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="SoreThroat" value="false"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cols-right col-md-6">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Triệu chứng</th>
+                        <th width="70" class="text-center">Có</th>
+                        <th width="70" class="text-center">Không</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label asp-for="VomitingOrNausea"></label>
+                            <span class="text-required" asp-validation-for="VomitingOrNausea"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="VomitingOrNausea" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="VomitingOrNausea" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="Diarrhea"></label>
+                            <span class="text-required" asp-validation-for="Diarrhea"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Diarrhea" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="Diarrhea" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="BleedingFromTheSkin"></label>
+                            <span class="text-required" asp-validation-for="BleedingFromTheSkin"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="BleedingFromTheSkin" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="BleedingFromTheSkin" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label asp-for="SkinRash"></label>
+                            <span class="text-required" asp-validation-for="SkinRash"></span>
+                        </td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="SkinRash" value="true"></td>
+                        <td class="text-center"><input type="Radio" class="style-radio" asp-for="SkinRash" value="false"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group" style="width:100%;">
+            <label asp-for="VaccinesOrBiologicalsUsed"></label>
+            <input asp-for="VaccinesOrBiologicalsUsed" style="height: 50px;" class="form-control" autocomplete="off" />
+            <span asp-validation-for="VaccinesOrBiologicalsUsed" class="text-danger"></span>
+        </div>
+    </div>
+    <p class="font-weight-bold">Lịch sử phơi nhiễm: Trong vòng 21 ngày qua, Anh/Chị có</p>
+    <div class="col-xs-12">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th width="70" class="text-center">Có</th>
+                    <th width="70" class="text-center">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label asp-for="AnimalContact"></label>
+                        <span class="text-required" asp-validation-for="AnimalContact"></span>
+                    </td>
+                    <td class="text-center"><input type="Radio" class="style-radio" asp-for="AnimalContact" value="true"></td>
+                    <td class="text-center"><input type="Radio" class="style-radio" asp-for="AnimalContact" value="false"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label asp-for="CloseContact"></label>
+                        <span class="text-required" asp-validation-for="CloseContact"></span>
+                    </td>
+                    <td class="text-center"><input type="Radio" class="style-radio" asp-for="CloseContact" value="true"></td>
+                    <td class="text-center"><input type="Radio" class="style-radio" asp-for="CloseContact" value="false"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
