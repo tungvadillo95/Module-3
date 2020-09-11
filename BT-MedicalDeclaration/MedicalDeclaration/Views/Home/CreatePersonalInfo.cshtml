@@ -1,0 +1,65 @@
+﻿@model CreatePersonalInfomationView
+@{
+    ViewBag.Title = "Create New Medical Declaration";
+    var yearNow = int.Parse(DateTime.Now.ToString("yyyy"));
+    var yearOfBirthMin = 1990;
+}
+
+
+<div>
+    <h2 class="text-center">TỜ KHAI Y TẾ ĐỐI VỚI NGƯỜI NHẬP CẢNH</h2>
+
+    <form asp-controller="Home" asp-action="CreatePersonalInfo" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row col-xs-12 ">
+            <div class="form-group inline-block form-inline label-width ">
+                <label>Cửa khẩu</label>
+                <select asp-for="GateId" asp-items="@(new SelectList(Model.Gates, "GateId", "GateName"))" class="custom-select">
+                    <option value="">-Chọn-</option>
+                </select>
+                <span asp-validation-for="GateId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="form-group inline-block form-inline label-width ">
+                <label>Họ tên (ghi chữ IN HOA)</label>
+                <input class="form-control inline-block form-inline " asp-for="PersonalName" style="text-transform: uppercase;" onblur="this.value = this.value.toUpperCase(); this.value=removeSpaces(this.value);" />
+                <span asp-validation-for="PersonalName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row  col-xs-12 ">
+            <div class="col-md-6 col-sm-5">
+                <div class="form-group inline-block form-inline label-width">
+                    <label>Năm sinh</label>
+                    <select class="input-text form-control" asp-for="YearOfBirth">
+                        <option value="">-Chọn-</option>
+                        @for (int i = yearNow; i >= yearOfBirthMin; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="YearOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-7">
+                <div class="form-group inline-block form-inline  ">
+                    <label>Giới tính</label>
+                    <select asp-for="GenderId" asp-items="@(new SelectList(Model.Genders, "GenderId", "GenderName"))" class="custom-select">
+                        <option value="">-Chọn-</option>
+                    </select>
+                    <span asp-validation-for="GenderId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="form-group inline-block form-inline ">
+                <label>Số hộ chiếu hoặc giấy thông hành hợp pháp khác</label>
+                <input class="form-control inline-block form-inline " asp-for="PassportNumber" onblur="this.value=removeSpaces(this.value);" />
+                <span asp-validation-for="PassportNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

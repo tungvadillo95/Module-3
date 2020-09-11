@@ -1,0 +1,203 @@
+﻿@model CreateTravelInformationView
+@{
+    ViewBag.Title = "Create New Medical Declaration";
+    var vehicles = ViewBag.Vehicles as List<MedicalDeclaration.Models.Entity.Vehicle>;
+    var getMonth = DateTime.Now.ToString("MM");
+    var getYear = DateTime.Now.ToString("yyyy");
+}
+
+
+<div>
+    <h2 class="text-center">TỜ KHAI Y TẾ ĐỐI VỚI NGƯỜI NHẬP CẢNH</h2>
+
+    <form asp-controller="Home" asp-action="CreateTravelInfo" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row col-md-12">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label>Thông tin đi lại &nbsp;</label>
+                    @if (vehicles != null)
+                    {
+                        foreach (var vehicle in vehicles)
+                        {
+                            <label class="checkbox-inline mx-2"><input type="checkbox" name ="Vehicles" value="@vehicle.VehiclesId">@vehicle.VehiclesName</label>
+                        }
+                    }
+                    <label class="mx-2">Khác (Ghi rõ):</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group col-md-12">
+            <textarea class="form-control" rows="2" onblur="this.value=removeSpaces(this.value);" asp-for="OtherVehicles"></textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 ">
+                <div class="form-group">
+                    <label>Số hiệu phương tiện </label>
+                    <input asp-for="VehicleNumber" class="form-control" type="text" value="" onblur="this.value=removeSpaces(this.value);" />
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 ">
+                <div class="form-group">
+                    <label>Số ghế </label>
+                    <input asp-for="SeatsNumber" class="form-control" type="text" value="" onblur="this.value=removeSpaces(this.value);" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-6 col-sm-6  col-xs-12 ">
+                <div class="form-group inline-block form-inline label-width ">
+                    <label>Ngày khởi hành &nbsp;</label>
+
+                    <div class="dateInputText inline-block form-inline label-width">
+                        <div class="day d-inline-b mx-1">
+                            <select class="input-text form-control" asp-for="DepartureDay_Date">
+                                <option value="">Ngày</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    if (i < 10)
+                                    {
+                                        var day = "0" + @i;
+                                        <option value="@i">@day</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="month d-inline-b">
+                            <select class="input-text form-control" asp-for="DepartureDay_Month">
+                                <option value="">Tháng</option>
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    if (i == int.Parse(getMonth))
+                                    {
+                                        <option selected value="@getMonth">@getMonth</option>
+                                    }
+                                    else if (i < 10)
+                                    {
+                                        var month = "0" + @i;
+                                        <option value="@i">@month</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="year d-inline-b">
+                            <select class="input-text form-control" asp-for="DepartureDay_Year">
+                                <option value="">Năm</option>
+                                @for (int i = int.Parse(getYear); i > int.Parse(getYear) - 2; i--)
+                                {
+                                    if (i == int.Parse(getYear))
+                                    {
+                                        <option selected value="@getYear">@getYear</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6  col-xs-12 ">
+                <div class="form-group inline-block form-inline label-width ">
+                    <label>Ngày nhập cảnh&nbsp;</label>
+
+                    <div class="dateInputText inline-block form-inline label-width">
+                        <div class="day d-inline-b mx-1">
+                            <select class="input-text form-control" asp-for="EntryDay_Date">
+                                <option value="">Ngày</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    if (i < 10)
+                                    {
+                                        var day = "0" + @i;
+                                        <option value="@i">@day</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="month d-inline-b mx-1">
+                            <select class="input-text form-control" asp-for="EntryDay_Month">
+                                <option value="">Tháng</option>
+
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    if (i == int.Parse(getMonth))
+                                    {
+                                        <option selected value="@getMonth">@getMonth</option>
+                                    }
+                                    else if (i < 10)
+                                    {
+                                        var month = "0" + @i;
+                                        <option value="@i">@month</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="year d-inline-b mx-1">
+                            <select class="input-text form-control" asp-for="EntryDay_Year">
+                                <option value="">Năm</option>
+                                @for (int i = int.Parse(getYear); i > int.Parse(getYear) - 2; i--)
+                                {
+                                    if (i == int.Parse(getYear))
+                                    {
+                                        <option selected value="@getYear">@getYear</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 ">
+                <div class="form-group">
+                    <label>Địa điểm khởi hành (tỉnh)</label>
+                    <select asp-for="DepartureLocation_ProvinceId" asp-items="@(new SelectList(Model.Provinces, "id", "_name"))" class="custom-select">
+                        <option value="">-Chọn-</option>
+                    </select>
+                    <span asp-validation-for="DepartureLocation_ProvinceId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 ">
+                <div class="form-group">
+                    <label>Địa điểm nơi đến (tỉnh)</label>
+                    <select asp-for="PlaceOfDestination_ProvinceId" asp-items="@(new SelectList(Model.Provinces, "id", "_name"))" class="custom-select">
+                        <option value="">-Chọn-</option>
+                    </select>
+                    <span asp-validation-for="PlaceOfDestination_ProvinceId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group col-md-12">
+            <label>Trong vòng 21 ngày qua, Anh/Chị có đến quốc gia/vùng lãnh thổ nào?</label>
+            <textarea asp-for="TravelHistory" class="form-control" rows="2" onblur="this.value=removeSpaces(this.value);"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

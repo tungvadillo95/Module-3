@@ -1,0 +1,40 @@
+﻿@model CreateContactAddressView
+@{
+    ViewBag.Title = "Create New ContactAddress";
+}
+
+
+<form>
+    <div class="row col-xs-12">
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group  ">
+                <label asp-for="ProvinceId"></label>
+                <select asp-for="ProvinceId" asp-items="@(new SelectList(Model.Provinces, "id", "_name"))" class="custom-select" onchange="create.changeProvince(this.value)">
+                    <option selected value="">-Chọn-</option>
+                </select>
+                <span asp-validation-for="ProvinceId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group  ">
+                <label asp-for="DistrictId"></label>
+                <select asp-for="DistrictId" asp-items="@(new SelectList(Model.Districts, "id", "DistrictName"))" class="custom-select" onchange="create.changeDistrict(this.value)">
+                    <option selected value="">-Chọn-</option>
+                </select>
+                <span asp-validation-for="DistrictId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group  ">
+                <label asp-for="WardId"></label>
+                <select asp-for="WardId" asp-items="@(new SelectList(Model.Wards, "id", "WardName"))" class="custom-select">
+                    <option selected value="">-Chọn-</option>
+                </select>
+                <span asp-validation-for="WardId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/js/create.js"></script>
+}
